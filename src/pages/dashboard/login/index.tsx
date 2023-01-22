@@ -7,34 +7,33 @@ import { FieldPassword } from "components/FieldPassword";
 import { Button } from "components/Button";
 import { FieldText } from "components/FieldText";
 
-export const loginSchema = z.object({
-  email: z.string().email("E-mail é um campo obrigatório."),
-  password: z.string().min(6, "Senha é um campo obrigatório."),
-});
-
-type LoginForm = {
-  email: string;
-  password: string;
-};
-
 export default function Login() {
+  const loginSchema = z.object({
+    email: z.string().email("E-mail é um campo obrigatório."),
+    password: z.string().min(6, "Senha é um campo obrigatório."),
+  });
+
+  type LoginFormData = z.infer<typeof loginSchema>;
+
+  const loginForm = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({
-    resolver: zodResolver(loginSchema),
-  });
+  } = loginForm;
 
   const [emailError, setEmailError] = useState<null | string>(null);
 
-  const onSubmit = useCallback(async (data: LoginForm) => {
+  const onSubmit = useCallback(async (data: LoginFormData) => {
     const { email, password } = data;
-
-    console.log({ data });
   }, []);
-
-  console.log({ errors });
 
   return (
     <div
