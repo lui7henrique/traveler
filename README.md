@@ -12,7 +12,7 @@
 - [ ] [stitches](https://stitches.dev/)
 - [ ] [React Hook Form](https://react-hook-form.com/)
 
-## Getting Started
+## Getting started (front-end)
 
 First, run the development server:
 
@@ -23,6 +23,26 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Getting started (back-end)
+
+Now, run docker instance:
+
+```bash
+docker-compose up -d
+```
+
+Get container id of instance:
+
+```bash
+docker ps
+```
+
+Execute container:
+
+```bash
+docker exec -it {id} psql -U prisma tests
+```
 
 # Dashboard features
 

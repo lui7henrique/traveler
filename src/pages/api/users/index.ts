@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "lib/prisma";
 import { User } from "@prisma/client";
+import prisma from "../../../lib/prisma/client";
 
 type ResponseData = {
   data?: User[];

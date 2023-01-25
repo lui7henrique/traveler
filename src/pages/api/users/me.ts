@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
-import prisma from "lib/prisma";
+import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 import { User } from "@prisma/client";
-import { decode } from "utils/token";
-import { TokenExpiredError } from "jsonwebtoken";
+
+import prisma from "../../../lib/prisma/client";
+import { decode } from "../../../utils/token";
 
 type ResponseData = {
   user?: User;
@@ -48,6 +48,12 @@ export default async function handler(
     return res.status(404).json({ message: "User not found." });
   } catch (err) {
     if (err instanceof TokenExpiredError) {
+      const { message } = err;
+
+      return res.status(401).json({ message: message });
+    }
+
+    if (err instanceof JsonWebTokenError) {
       const { message } = err;
 
       return res.status(401).json({ message: message });

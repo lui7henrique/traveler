@@ -1,11 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import prisma from "lib/prisma";
-
-import { isValidEmail } from "utils/email/valid";
-import { hash } from "utils/password/hash";
-
-import { encode } from "utils/token";
+import prisma from "../../../../lib/prisma/client";
+import { isValidEmail } from "../../../../utils/email/valid";
+import { hash } from "../../../../utils/password/hash";
+import { encode } from "../../../../utils/token";
 
 type ResponseData = {
   message?: string;
@@ -14,7 +12,7 @@ type ResponseData = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
@@ -53,7 +51,6 @@ export default async function handler(
 
       if (isMatchPasswords) {
         const token = encode(user);
-
         return res.status(200).json({ token });
       }
     }
