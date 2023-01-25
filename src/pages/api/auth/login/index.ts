@@ -5,11 +5,6 @@ import { isValidEmail } from "../../../../utils/email/valid";
 import { hash } from "../../../../utils/password/hash";
 import { encode } from "../../../../utils/token";
 
-type ResponseData = {
-  message?: string;
-  token?: string;
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
