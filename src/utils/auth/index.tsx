@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../lib/prisma/client";
-
-import { decode } from "utils/token";
 import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
+
+import prisma from "../../lib/prisma/client";
+import { decode } from "../../utils/token";
+
 import { User } from "@prisma/client";
 
 const secret = process.env.JWT_SECRET;
