@@ -1,3 +1,11 @@
+import { Button } from "components/Button";
+
 export default function Login() {
-  return <h1>Login</h1>;
+  return (
+    <>
+      <Button>Acessar plataforma</Button>
+
+      {/* <Button label="Oi" color="green" /> */}
+    </>
+  );
 }

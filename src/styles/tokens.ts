@@ -119,6 +119,24 @@ export const media = {
 */
 
 export const colors = {
-  brandBlue: "#115D8C",
-  brandOrange: "#F25D27",
+  blue: "#115D8C",
+  blueLow: "#DDE9F0",
+
+  orange: "#F25D27",
+  orangeLow: "#FFA585",
+
+  yellow: "#EFB866",
+
+  title: "#123952",
+  text: "#617480",
+  subtext: "#A0ACB2",
+
+  shape: "#FFFFFF",
+  subShape: "#DCE2E5",
+  background: "#F5F8FA",
+
+  red: "#DE3838",
+
+  green: "#51B853",
+  greenLow: "#DCF5DD",
 };
