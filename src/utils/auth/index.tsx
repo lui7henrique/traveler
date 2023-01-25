@@ -6,7 +6,7 @@ import { decode } from "../../utils/token";
 
 import { User } from "@prisma/client";
 
-const secret = process.env.JWT_SECRET;
+type Methods = "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
 
 type Fn = (
   req: NextApiRequest,
@@ -14,11 +14,20 @@ type Fn = (
   user: User | null
 ) => Promise<void> | void;
 
-export const withAuth = (fn: Fn) => {
+type Config = {
+  methods: Methods[];
+};
+
+export const withAuth = (fn: Fn, config?: Config) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     const {
       headers: { authorization },
+      method,
     } = req;
+
+    if (!config?.methods.includes(method as Methods)) {
+      return res.status(405).json({ message: "Method not allowed" });
+    }
 
     if (authorization) {
       const [_, token] = authorization?.split(" ");
