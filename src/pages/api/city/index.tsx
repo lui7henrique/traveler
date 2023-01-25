@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { withAuth } from "utils/auth";
+import { withAuth } from "../../../utils/auth";
 
 const handler = withAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {

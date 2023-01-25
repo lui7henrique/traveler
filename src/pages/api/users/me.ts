@@ -1,4 +1,4 @@
-import { withAuth } from "utils/auth";
+import { withAuth } from "../../../utils/auth";
 
 const handler = withAuth(async (req, res, user) => {
   if (req.method !== "GET") {
