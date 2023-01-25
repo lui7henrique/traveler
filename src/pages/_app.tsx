@@ -1,3 +1,4 @@
+import { AppProvider } from "context";
 import type { AppProps } from "next/app";
 import { globalStyles, GlobalStyles } from "styles/global";
 
@@ -7,7 +8,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyles />
-      <Component {...pageProps} />
+
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
     </>
   );
 }

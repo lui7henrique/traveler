@@ -26,9 +26,15 @@ const BaseFieldText: ForwardRefRenderFunction<
   const [isTyping, setIsTyping] = useState(false);
 
   return (
-    <S.Container style={error && "error"} {...containerProps}>
+    <S.Container
+      style={error && "error"}
+      {...containerProps}
+      onFocus={() => !isTyping && setIsTyping(true)}
+      onMouseEnter={() => !isTyping && setIsTyping(true)}
+    >
       <S.Label error={!!error} isTyping={isTyping}>
         {label}
+
         {error?.message && (
           <Tooltip content={error?.message}>
             <MdErrorOutline />
@@ -37,7 +43,6 @@ const BaseFieldText: ForwardRefRenderFunction<
       </S.Label>
 
       <S.Input
-        onFocus={() => !isTyping && setIsTyping(true)}
         {...inputProps}
         onBlur={({ target: { value } }) =>
           !value.trim().length && setIsTyping(false)

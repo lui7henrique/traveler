@@ -11,7 +11,7 @@ export const Button = styled("button", {
       },
     },
     disabled: {
-      true: { opacity: 0.7, cursor: "not-allowed" },
+      true: { opacity: 0.7, cursor: "not-allowed", pointerEvents: "none" },
       false: {},
     },
   },
