@@ -5,6 +5,7 @@ import prisma from "../../lib/prisma/client";
 import { decode } from "../../utils/token";
 
 import { User } from "@prisma/client";
+import { PrismaClientInitializationError } from "@prisma/client/runtime";
 
 type Methods = "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
 
@@ -61,10 +62,16 @@ export const withAuth = (fn: Fn, config?: Config) => {
 
             return res.status(401).json({ message: message });
           }
+
+          if (error instanceof PrismaClientInitializationError) {
+            const { message } = error;
+
+            return res.status(500).json({ message: message });
+          }
         }
       }
     }
 
-    return res.status(401).json({ message: "Token must be provided." });
+    return res.status(200).json({ message: "Token must be provided." });
   };
 };

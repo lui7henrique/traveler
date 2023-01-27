@@ -1,5 +1,5 @@
-import { withAuth } from "../../../utils/auth";
-import prisma from "../../../lib/prisma/client";
+import { withAuth } from "../../../../utils/auth";
+import prisma from "../../../../lib/prisma/client";
 
 const handler = withAuth(
   async (req, res) => {
