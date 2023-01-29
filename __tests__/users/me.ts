@@ -53,7 +53,7 @@ describe("users/me", () => {
     const { message } = JSON.parse(res._getData());
 
     expect(res.statusCode).toBe(401);
-    expect(message).toBe("Authorization header token must be provided.");
+    expect(message).toBe("Token must be provided.");
   });
 
   test("should not be able to get my informations with invalid token", async () => {
