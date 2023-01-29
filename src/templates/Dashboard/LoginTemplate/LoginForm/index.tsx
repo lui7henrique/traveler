@@ -9,8 +9,6 @@ import { FieldPassword } from "components/FieldPassword";
 import { LoginFormData, loginSchema } from "./schema";
 import * as S from "./styles";
 
-import { colors } from "styles/tokens";
-
 import { useAuth } from "context/auth";
 
 export const LoginForm = () => {
@@ -48,6 +46,10 @@ export const LoginForm = () => {
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
       <S.FormTitle>Fazer login</S.FormTitle>
+      <S.FormDescription>
+        Acesse a plataforma sendo sócio ou moderador 😃
+      </S.FormDescription>
+
       <S.FormFields>
         <FieldText
           {...register("email")}
@@ -66,13 +68,6 @@ export const LoginForm = () => {
       <S.FormButton type="submit" disabled={!hasFormFields}>
         Acessar plataforma
       </S.FormButton>
-      <S.FormFooter>
-        <S.FormFooterIcon size={32} color={colors.orange} />
-
-        <S.FormFooterMessage>
-          Acesso restrito à <br /> sócios e moderadores
-        </S.FormFooterMessage>
-      </S.FormFooter>
     </S.Form>
   );
 };

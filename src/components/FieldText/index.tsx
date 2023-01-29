@@ -14,6 +14,7 @@ export type FieldTextProps = {
   label: string;
   error?: FieldError;
   containerProps?: typeof S.Container.defaultProps;
+  leftIcon?: JSX.Element;
   rightIcon?: JSX.Element;
 } & HTMLProps<HTMLInputElement>;
 
@@ -21,37 +22,26 @@ const BaseFieldText: ForwardRefRenderFunction<
   HTMLInputElement,
   FieldTextProps
 > = (props, ref) => {
-  const { label, error, rightIcon, containerProps, ...inputProps } = props;
-
-  const [isTyping, setIsTyping] = useState(false);
+  const { label, error, rightIcon, leftIcon, containerProps, ...inputProps } =
+    props;
 
   return (
-    <S.Container
-      style={error && "error"}
-      {...containerProps}
-      onFocus={() => !isTyping && setIsTyping(true)}
-      onMouseEnter={() => !isTyping && setIsTyping(true)}
-    >
-      <S.Label error={!!error} isTyping={isTyping}>
+    <S.Container {...containerProps}>
+      <S.Label error={!!error}>
         {label}
 
         {error?.message && (
           <Tooltip content={error?.message}>
-            <MdErrorOutline />
+            <MdErrorOutline size={16} />
           </Tooltip>
         )}
       </S.Label>
 
-      <S.Input
-        {...inputProps}
-        onBlur={({ target: { value } }) =>
-          !value.trim().length && setIsTyping(false)
-        }
-        autoComplete="off"
-        ref={ref}
-      />
-
-      {rightIcon}
+      <S.Content style={error && "error"}>
+        {leftIcon}
+        <S.Input {...inputProps} autoComplete="off" ref={ref} />
+        {rightIcon}
+      </S.Content>
     </S.Container>
   );
 };

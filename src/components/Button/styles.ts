@@ -21,7 +21,7 @@ export const Button = styled("button", {
   },
 
   color: "$shape",
-  fontSize: "$lg",
+  fontSize: "$md",
   fontWeight: "$medium",
 
   width: "100%",
@@ -32,8 +32,14 @@ export const Button = styled("button", {
 
   border: "none",
   outline: "none",
-  padding: "$6",
+  padding: "$4",
 
-  borderRadius: "$md",
+  borderRadius: "$sm",
   cursor: "pointer",
+
+  transition: "all 0.2s ease-in-out",
+
+  "&:hover": {
+    filter: "brightness(0.9)",
+  },
 });

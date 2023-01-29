@@ -48,11 +48,11 @@ export const globalStyles = globalCss({
 
   a: {
     textDecoration: "none",
-    color: "$gray300",
+    color: "$text",
   },
 
   p: {
-    color: "$gray300",
+    color: "$text",
   },
 
   "body::-webkit-scrollbar": {

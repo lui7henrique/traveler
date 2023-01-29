@@ -10,10 +10,6 @@ export const Container = styled("div", {
         background: "$subShape",
         color: "$title",
       },
-      error: {
-        borderColor: "$red",
-        color: "$subtext",
-      },
     },
   },
   defaultVariants: {
@@ -21,39 +17,51 @@ export const Container = styled("div", {
   },
 
   display: "flex",
-  alignItems: "center",
+  flexDirection: "column",
+});
 
-  padding: "0 $6",
-  height: "$16",
-  background: "$shape",
+export const Content = styled("div", {
+  variants: {
+    style: {
+      error: {
+        borderColor: "$red",
+        borderWidth: "2px",
+        color: "$subtext",
+      },
+    },
+  },
+
+  height: "$12",
+  padding: "0 $4",
 
   borderWidth: "1px",
   borderStyle: "solid",
   borderColor: "$subShape",
 
-  borderRadius: "$md",
-
-  position: "relative",
-
+  borderRadius: "$sm",
   transition: "all 0.2s ease-in-out",
+
+  display: "flex",
+  alignItems: "center",
 });
 
 export const Input = styled("input", {
-  width: "100%",
-
-  border: "none",
   outline: "none",
+  border: "none",
 
-  transform: "translateY(30%)",
   zIndex: 1,
+
+  width: "100%",
+  height: "100%",
+  background: "$shape",
+
+  "&:-webkit-autofill": {
+    "-webkit-box-shadow": "0 0 0 30px white inset !important",
+  },
 });
 
 export const Label = styled("label", {
   variants: {
-    isTyping: {
-      true: { transform: "translateY(-70%)", fontSize: "$xs" },
-      false: { transform: "translateY(-0%)" },
-    },
     error: {
       true: {
         color: "$red",
@@ -61,11 +69,9 @@ export const Label = styled("label", {
     },
   },
 
-  display: "flex",
-  transition: "all 0.2s ease-in-out",
-  position: "absolute",
-  alignItems: "center",
-  left: "$6",
+  fontSize: "$sm",
+  margin: "$1 0 ",
 
-  zIndex: 2,
+  display: "flex",
+  alignItems: "center",
 });

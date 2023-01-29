@@ -2,7 +2,6 @@ import { FieldText, FieldTextProps } from "components/FieldText";
 import { forwardRef, useState, ForwardRefRenderFunction } from "react";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { styled } from "styles";
-import styledbosta from "styled-components";
 
 type FieldPasswordProps = FieldTextProps;
 
