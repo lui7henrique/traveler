@@ -1,4 +1,5 @@
 import { Button } from "components/Button";
+import Link from "next/link";
 import { styled } from "styles";
 
 export const Form = styled("form", {
@@ -28,4 +29,17 @@ export const FormFields = styled("div", {
 
 export const FormButton = styled(Button, {
   marginTop: "$8",
+});
+
+export const FormFooter = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  marginTop: "$2",
+});
+
+export const FormRecoveryPassword = styled(Link, {
+  fontSize: "$sm",
+  color: "$subtext",
 });

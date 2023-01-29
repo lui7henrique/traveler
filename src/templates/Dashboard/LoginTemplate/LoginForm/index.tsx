@@ -1,15 +1,16 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useAuth } from "context/auth";
 
 import { FieldText } from "components/FieldText";
 import { FieldPassword } from "components/FieldPassword";
 
 import { LoginFormData, loginSchema } from "./schema";
 import * as S from "./styles";
-
-import { useAuth } from "context/auth";
+import { FieldCheckBox } from "components/FieldCheckBox";
 
 export const LoginForm = () => {
   const { signIn } = useAuth();
@@ -19,6 +20,7 @@ export const LoginForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    control,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -54,8 +56,8 @@ export const LoginForm = () => {
         <FieldText
           {...register("email")}
           error={errors.email}
-          label="E-mail"
           type="email"
+          label="E-mail"
         />
 
         <FieldPassword
@@ -65,8 +67,19 @@ export const LoginForm = () => {
         />
       </S.FormFields>
 
+      <S.FormFooter>
+        <FieldCheckBox
+          control={control}
+          options={[{ label: "Lembrar-me", name: "rememberMe" }]}
+        />
+
+        <S.FormRecoveryPassword href="/dashboard/login/reset-password">
+          Esqueci minha senha
+        </S.FormRecoveryPassword>
+      </S.FormFooter>
+
       <S.FormButton type="submit" disabled={!hasFormFields}>
-        Acessar plataforma
+        Acessar
       </S.FormButton>
     </S.Form>
   );

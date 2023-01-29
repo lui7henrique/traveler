@@ -34,7 +34,7 @@ export const Button = styled("button", {
   outline: "none",
   padding: "$4",
 
-  borderRadius: "$sm",
+  borderRadius: "$xs",
   cursor: "pointer",
 
   transition: "all 0.2s ease-in-out",

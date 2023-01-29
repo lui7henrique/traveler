@@ -38,7 +38,7 @@ export const Content = styled("div", {
   borderStyle: "solid",
   borderColor: "$subShape",
 
-  borderRadius: "$sm",
+  borderRadius: "$xs",
   transition: "all 0.2s ease-in-out",
 
   display: "flex",
@@ -57,6 +57,14 @@ export const Input = styled("input", {
 
   "&:-webkit-autofill": {
     "-webkit-box-shadow": "0 0 0 30px white inset !important",
+  },
+
+  "input::-ms-reveal": {
+    display: "none",
+  },
+
+  "input::-ms-clear": {
+    display: "none",
   },
 });
 
