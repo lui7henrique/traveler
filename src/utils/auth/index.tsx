@@ -72,6 +72,6 @@ export const withAuth = (fn: Fn, config?: Config) => {
       }
     }
 
-    return res.status(200).json({ message: "Token must be provided." });
+    return res.status(401).json({ message: "Token must be provided." });
   };
 };
