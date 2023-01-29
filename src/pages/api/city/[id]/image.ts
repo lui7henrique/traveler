@@ -49,10 +49,20 @@ const handler = withAuth(
       fs.readFile(path, async (err, data) => {
         if (err) throw err;
 
-        const filePath = `${PUBLIC_PATH}/${city.name.toLowerCase()}.png`;
+        const filePath = `${PUBLIC_PATH}/cities/${city.name.toLowerCase()}.jpg`;
+        const imagePath = `/${filePath}`;
 
-        fs.writeFile(filePath, data, () => {
+        fs.writeFile(filePath, data, async () => {
           if (err) throw err;
+
+          await prisma.city.update({
+            where: {
+              id: id as string,
+            },
+            data: {
+              image: imagePath,
+            },
+          });
         });
       });
 

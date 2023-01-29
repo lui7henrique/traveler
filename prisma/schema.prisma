@@ -28,6 +28,7 @@ model City {
   description String
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
+  image       String?
 
   @@map(name: "cities")
 }

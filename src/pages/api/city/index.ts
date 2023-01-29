@@ -7,7 +7,7 @@ const handler = withAuth(
   async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
       const { body } = req;
-      const { name, description, image } = body;
+      const { name, description } = body;
 
       if (!name)
         return res.status(406).json({ message: "Name field is missing" });
