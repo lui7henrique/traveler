@@ -54,6 +54,7 @@ export const LoginButton = (props: LoginButtonProps) => {
     const cooldownStorage = localStorage.getItem(LOGIN_COOLDOWN_KEY);
 
     if (cooldownStorage) {
+      setIsDisabled(true);
       setCooldown(Number(cooldownStorage));
     }
   }, []);
