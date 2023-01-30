@@ -1,74 +1,51 @@
-import { useRouter } from "next/router";
-import { AxiosError } from "axios";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { api } from "services/api";
-import {
-  AuthContextProviderProps,
-  AuthContextType,
-  AuthLoginResponse,
-} from "./types";
+import { createContext, useCallback, useContext, useState } from "react";
+import { AuthContextProviderProps, AuthContextType } from "./types";
+import { toast } from "react-toastify";
+import { signIn as nextAuthSignIn } from "next-auth/react";
 
-const AUTH_KEY = "@traveler-token";
+import { feedback } from "./feedback";
+import { useRouter } from "next/router";
+import { useAttempts } from "context/attempts";
 
 export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = (props: AuthContextProviderProps) => {
   const { children } = props;
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-
   const { push } = useRouter();
+  const { incrementAttemptsAmount } = useAttempts();
 
   const signIn = useCallback(
     async (email: string, password: string) => {
       try {
-        const {
-          data: { token },
-        } = await api.post<AuthLoginResponse>("/auth/login", {
+        const response = await nextAuthSignIn("credentials", {
           email,
           password,
+          redirect: false,
         });
 
-        if (token) {
-          setToken(token);
-          setIsAuthenticated(true);
+        if (response) {
+          const { message, title, icon, type } = feedback(response.status);
 
-          push("/dashboard/me");
+          toast(title, {
+            data: message,
+            icon: icon,
+            type,
+          });
 
-          api.defaults.headers["Authorization"] = `Bearer ${token}`;
-          localStorage.setItem(AUTH_KEY, token);
+          incrementAttemptsAmount();
+
+          if (response.status === 201) {
+            push("/dashboard");
+          }
         }
-      } catch (e) {
-        if (e instanceof AxiosError) {
-          const { message } = e?.response?.data;
-
-          alert(message);
-        }
-      }
+      } catch {}
     },
     [push]
   );
 
-  useEffect(() => {
-    const storageToken = localStorage.getItem(AUTH_KEY);
-
-    if (storageToken) {
-      api.defaults.headers["Authorization"] = `Bearer ${token}`;
-      setToken(storageToken);
-    }
-  }, [token]);
-
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, token }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ signIn }}>{children}</AuthContext.Provider>
   );
 };
 

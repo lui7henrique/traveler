@@ -25,6 +25,7 @@ export const Button = styled("button", {
   fontWeight: "$medium",
 
   width: "100%",
+  height: "$12",
 
   display: "flex",
   alignItems: "center",

@@ -1,48 +1,35 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useAuth } from "context/auth";
-
 import { FieldText } from "components/FieldText";
 import { FieldPassword } from "components/FieldPassword";
-
-import { LoginFormData, loginSchema } from "./schema";
-import * as S from "./styles";
 import { FieldCheckBox } from "components/FieldCheckBox";
 
-export const LoginForm = () => {
-  const { signIn } = useAuth();
+import { LoginFormData, loginSchema } from "./schema";
 
+import * as S from "./styles";
+
+import { useAuth } from "context/auth";
+
+export const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    watch,
+    formState: { errors, isSubmitting },
     control,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
+
+  const { signIn } = useAuth();
 
   const onSubmit = useCallback(
     async (data: LoginFormData) => {
-      const { email, password } = data;
-
-      signIn(email, password);
+      await signIn(data.email, data.password);
     },
     [signIn]
-  );
-
-  const [email, password] = [watch("email"), watch("password")];
-
-  const hasFormFields = useMemo(
-    () => [email, password].every((f) => f),
-    [email, password]
   );
 
   return (
@@ -78,9 +65,7 @@ export const LoginForm = () => {
         </S.FormRecoveryPassword>
       </S.FormFooter>
 
-      <S.FormButton type="submit" disabled={!hasFormFields}>
-        Acessar
-      </S.FormButton>
+      <S.FormButton type="submit" isLoading={isSubmitting} />
     </S.Form>
   );
 };

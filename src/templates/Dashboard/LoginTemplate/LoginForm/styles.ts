@@ -1,4 +1,5 @@
 import { Button } from "components/Button";
+import { LoginButton } from "components/LoginButton";
 import Link from "next/link";
 import { styled } from "styles";
 
@@ -27,7 +28,7 @@ export const FormFields = styled("div", {
   gap: "$4",
 });
 
-export const FormButton = styled(Button, {
+export const FormButton = styled(LoginButton, {
   marginTop: "$8",
 });
 

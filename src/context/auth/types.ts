@@ -5,11 +5,7 @@ export type AuthContextProviderProps = {
 };
 
 export type AuthContextType = {
-  isAuthenticated: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  token: string | null;
 };
 
-export type AuthLoginResponse = {
-  token: string;
-};
+export type AuthLoginResponse = {};

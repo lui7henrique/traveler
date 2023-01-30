@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { AttemptsContextProvider } from "./attempts";
 import { AuthContextProvider } from "./auth";
 
 type AppProviderProps = {
@@ -6,5 +7,9 @@ type AppProviderProps = {
 };
 
 export const AppProvider = (props: AppProviderProps) => {
-  return <AuthContextProvider>{props.children}</AuthContextProvider>;
+  return (
+    <AttemptsContextProvider>
+      <AuthContextProvider>{props.children}</AuthContextProvider>
+    </AttemptsContextProvider>
+  );
 };

@@ -1,11 +1,17 @@
 import * as S from "./styles";
+import { RotateSpinner } from "react-spinners-kit";
 
-type ButtonProps = typeof S.Button.defaultProps & {
+export type ButtonProps = typeof S.Button.defaultProps & {
   children: JSX.Element | string;
+  isLoading?: boolean;
 };
 
 export const Button = (props: ButtonProps) => {
-  const { children, ...buttonProps } = props;
+  const { children, isLoading, ...buttonProps } = props;
 
-  return <S.Button {...buttonProps}>{children}</S.Button>;
+  return (
+    <S.Button {...buttonProps}>
+      {isLoading ? <RotateSpinner size={20} color="#FFF" /> : children}
+    </S.Button>
+  );
 };
