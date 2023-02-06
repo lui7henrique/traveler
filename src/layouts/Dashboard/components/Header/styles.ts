@@ -24,6 +24,7 @@ export const HeaderContent = styled(DashboardLimiter, {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  height: "60%",
 });
 
 export const HeaderTitle = styled("h1", {

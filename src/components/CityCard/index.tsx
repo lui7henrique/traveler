@@ -1,5 +1,8 @@
 import { City } from "@prisma/client";
+import { CityControlButtons } from "components/CityControlButtons";
+import { CityButtons } from "components/CityControlButtons/styles";
 import { useCity } from "hooks/modules/useCity";
+import Link from "next/link";
 import { BiPencil } from "react-icons/bi";
 import { FiTrash } from "react-icons/fi";
 
@@ -14,24 +17,13 @@ export const CityCard = (props: CityCardProps) => {
     city: { name, id, image, slug },
   } = props;
 
-  const { handleDeleteCity } = useCity();
-
   const thumbnail = image ?? "/uploads/images/cities/fallback.jpg";
 
   return (
     <S.CityCard key={id}>
       <S.CityThumbnailWrapper>
-        <S.CityButtons>
-          <S.CityButton side="left">
-            <BiPencil size={20} color="#617480" />
-          </S.CityButton>
-
-          <S.CityButton side="right" onClick={() => handleDeleteCity(id)}>
-            <FiTrash size={20} color="#617480" />
-          </S.CityButton>
-        </S.CityButtons>
-
         <S.CityThumbnail src={thumbnail} fill alt={name} />
+        <CityControlButtons city={props.city} />
       </S.CityThumbnailWrapper>
 
       <S.CityInfos>

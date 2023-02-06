@@ -6,7 +6,7 @@ import { queryClient } from "pages/_app";
 import { api } from "services/api";
 
 export const useCity = () => {
-  const { push } = useRouter();
+  const { push, asPath } = useRouter();
   const { handleError, handleSuccess } = useFeedback();
 
   const queryKey = ["cities"];
@@ -56,6 +56,12 @@ export const useCity = () => {
   };
 
   const handleDeleteCity = async (id: string) => {
+    const isInProfilePage = asPath.includes("profile");
+
+    if (isInProfilePage) {
+      await push("/dashboard/city");
+    }
+
     await deleteMutation.mutateAsync(id);
   };
 

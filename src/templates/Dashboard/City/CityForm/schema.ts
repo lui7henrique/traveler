@@ -8,8 +8,8 @@ export const citySchema = z.object({
   description: z
     .string()
     .min(1, { message: "Descrição é um campo obrigatório." })
-    .max(240, {
-      message: "Máximo de 240 caracteres",
+    .max(520, {
+      message: "Máximo de 520 caracteres",
     }),
 
   image: z.any(),

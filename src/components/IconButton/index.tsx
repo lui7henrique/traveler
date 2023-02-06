@@ -8,7 +8,7 @@ import { styled } from "styles";
 
 export const IconButtonContainer = styled(Button, {
   aspectRatio: 1 / 1,
-  padding: "$3 !important",
+  padding: "$2 !important",
 });
 
 type IconButtonProps = Omit<ButtonProps, "children"> & {

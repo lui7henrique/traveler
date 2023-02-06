@@ -11,6 +11,10 @@ const handler = withAuth(
       method,
     } = req;
 
+    if (!id) {
+      return res.status(422).json({ message: "Cadê o ID? ¯_(ツ)_/¯" });
+    }
+
     const city = await prisma.city.findUnique({
       where: {
         id: id as string,
@@ -19,6 +23,10 @@ const handler = withAuth(
 
     if (!city) {
       return res.status(404).json({ message: "Cidade não encontrada." });
+    }
+
+    if (method === "GET") {
+      return res.status(200).json({ ...city });
     }
 
     if (method === "DELETE") {
@@ -114,7 +122,7 @@ const handler = withAuth(
     }
   },
   {
-    methods: ["DELETE", "PUT", "PATCH"],
+    methods: ["DELETE", "PUT", "PATCH", "GET"],
   }
 );
 

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { styled } from "styles";
 
@@ -20,6 +19,13 @@ export const CityThumbnailWrapper = styled("figure", {
   width: "100%",
   aspectRatio: 16 / 9,
   position: "relative",
+
+  "& > div": {
+    position: "absolute",
+
+    top: "$4",
+    right: "$4",
+  },
 });
 
 export const CityThumbnail = styled(Image, {
@@ -39,47 +45,4 @@ export const CityName = styled("h3", {
 
 export const CityPlacesAmount = styled("sub", {
   color: "$subtext",
-});
-
-export const CityButtons = styled("div", {
-  display: "flex",
-  gap: "$1",
-
-  position: "absolute",
-
-  top: "$4",
-  right: "$4",
-
-  zIndex: 5,
-});
-
-export const CityButton = styled("button", {
-  variants: {
-    side: {
-      left: {
-        borderRadius: "10px 0px 0px 10px;",
-      },
-      right: {
-        borderRadius: "0px 10px 10px 0px",
-      },
-    },
-  },
-
-  width: "$10",
-  height: "$10",
-
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-
-  borderColor: "$subShape",
-  borderWidth: "2px",
-  borderStyle: "solid",
-
-  cursor: "pointer",
-  transition: "all 0.2s ease-in-out",
-
-  "&:hover": {
-    filter: "brightness(0.8)",
-  },
 });
