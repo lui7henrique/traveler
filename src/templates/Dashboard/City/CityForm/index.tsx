@@ -10,21 +10,18 @@ import { FieldTextArea } from "components/FieldTextArea";
 import { CityFormData, citySchema } from "./schema";
 
 import { FormBox } from "layouts/Dashboard/components/FormBox";
+import { useCity } from "hooks/modules/useCity";
 
-type CityFormProps = {
-  handleNextStep: () => void;
-};
-
-export const CityForm = (props: CityFormProps) => {
-  const { handleNextStep } = props;
-
+export const CityForm = () => {
   const [image, setImage] = useState<File | null>(null);
+  const { handleCreateCity } = useCity();
 
   const {
     register,
     formState: { errors, isSubmitted },
     setError,
     clearErrors,
+    handleSubmit,
   } = useForm<CityFormData>({
     resolver: zodResolver(citySchema),
   });
@@ -32,10 +29,12 @@ export const CityForm = (props: CityFormProps) => {
   const onSubmit = useCallback(
     async (data: CityFormData) => {
       if (image) {
-        handleNextStep();
+        const { name, description } = data;
+
+        handleCreateCity(name, description, image);
       }
     },
-    [handleNextStep, image]
+    [handleCreateCity, image]
   );
 
   useEffect(() => {
@@ -59,10 +58,11 @@ export const CityForm = (props: CityFormProps) => {
       title="Adicione uma cidade"
       subtitle="Dados da cidade"
       button={
-        <Button color="blue" type="submit">
-          Próximo
+        <Button color="green" type="submit">
+          Concluir
         </Button>
       }
+      onSubmit={handleSubmit(onSubmit)}
     >
       <FieldText
         label="Nome da cidade"

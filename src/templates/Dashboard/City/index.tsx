@@ -1,36 +1,24 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Step, Steps } from "components/Steps";
 
 import { DashboardLayout } from "layouts/Dashboard";
+import { CityForm } from "./CityForm";
 
 import * as S from "./styles";
-import { CityForm } from "./CityForm";
-import { CityPlaceForm } from "./CityPlaceForm";
 
 export const DashboardCityTemplate = () => {
   const [currentStepKey, setCurrentStepKey] = useState("city-form");
-
-  const handleNextStep = useCallback(() => {
-    if (currentStepKey === "city-form") {
-      setCurrentStepKey("city-place-form");
-    }
-  }, [currentStepKey]);
 
   const STEPS: Step[] = useMemo(
     () => [
       {
         key: "city-form",
         label: "1",
-        panel: <CityForm handleNextStep={handleNextStep} />,
-      },
-      {
-        key: "city-place-form",
-        label: "2",
-        panel: <CityPlaceForm />,
+        panel: <CityForm />,
       },
     ],
-    [handleNextStep]
+    []
   );
 
   const currentStep = useMemo(

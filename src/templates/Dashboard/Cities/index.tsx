@@ -7,7 +7,7 @@ import * as S from "./styles";
 
 import { CityCard } from "components/CityCard";
 import { useRouter } from "next/router";
-import { useCity } from "hooks/modules/city";
+import { useCity } from "hooks/modules/useCity";
 
 export const DashboardCitiesTemplate = () => {
   const { queryKey } = useCity();

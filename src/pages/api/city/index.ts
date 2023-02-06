@@ -36,7 +36,7 @@ const handler = withAuth(
         return res.json({ ...city });
       } catch (e) {
         if (e instanceof PrismaClientKnownRequestError) {
-          return res.status(422).json({ message: "Name must be unique" });
+          return res.status(422).json({ message: "Cidade já cadastrada." });
         }
 
         return res.json({ e });

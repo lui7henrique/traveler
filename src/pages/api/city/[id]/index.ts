@@ -1,4 +1,5 @@
 import slugify from "slugify";
+import fs from "fs";
 
 import { withAuth } from "../../../../utils/auth";
 import prisma from "../../../../lib/prisma/client";
@@ -10,14 +11,32 @@ const handler = withAuth(
       method,
     } = req;
 
+    const city = await prisma.city.findUnique({
+      where: {
+        id: id as string,
+      },
+    });
+
+    if (!city) {
+      return res.status(404).json({ message: "Cidade não encontrada." });
+    }
+
     if (method === "DELETE") {
+      fs.unlink(`public/uploads/images/${city.slug}.jpg`, (err) => {
+        if (err) throw err;
+
+        return res.status(500).json({
+          message: "Não foi possível excluir a cidade.",
+        });
+      });
+
       await prisma.city.delete({
         where: {
           id: id as string,
         },
       });
 
-      return res.status(200).json({ message: "City deleted successfully." });
+      return res.status(200).json({ message: "Cidade excluída com sucesso." });
     }
 
     const {
@@ -26,12 +45,12 @@ const handler = withAuth(
 
     if (method === "PUT") {
       if (!name)
-        return res.status(406).json({ message: "Name field is missing" });
+        return res.status(406).json({ message: "Campo nome é obrigatório." });
 
       if (!description)
         return res
           .status(406)
-          .json({ message: "Description field is missing" });
+          .json({ message: "Campo descrição é obrigatório." });
 
       const city = await prisma.city.update({
         where: {

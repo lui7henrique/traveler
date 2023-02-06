@@ -1,5 +1,5 @@
 import { City } from "@prisma/client";
-import { useCity } from "hooks/modules/city";
+import { useCity } from "hooks/modules/useCity";
 import { BiPencil } from "react-icons/bi";
 import { FiTrash } from "react-icons/fi";
 

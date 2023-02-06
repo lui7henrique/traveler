@@ -9,13 +9,13 @@ type FormBoxProps = {
   subtitle: string;
   children: ReactNode;
   button: ReactNode;
-};
+} & typeof S.FormBoxContainer.defaultProps;
 
 export const FormBox = (props: FormBoxProps) => {
-  const { step, title, subtitle, button, children } = props;
+  const { step, title, subtitle, button, children, ...containerProps } = props;
 
   return (
-    <S.FormBoxContainer>
+    <S.FormBoxContainer {...containerProps}>
       <S.FormBoxHeader>
         <S.FormBoxHeaderStep>{step}</S.FormBoxHeaderStep>
         <S.FormBoxHeaderTitle>{title}</S.FormBoxHeaderTitle>

@@ -1,6 +1,6 @@
 import { styled } from "styles";
 
-export const FormBoxContainer = styled("div", {
+export const FormBoxContainer = styled("form", {
   width: "100%",
 
   background: "$shape",
@@ -50,7 +50,7 @@ export const FormBoxHeaderTitle = styled("h1", {
   fontWeight: "$semibold",
 });
 
-export const FormBoxBody = styled("form", {
+export const FormBoxBody = styled("div", {
   padding: "$12 $16",
 });
 
