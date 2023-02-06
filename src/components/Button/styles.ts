@@ -1,5 +1,7 @@
 import { styled } from "styles";
 
+export type VariantColor = "orange" | "green" | "gray";
+
 export const Button = styled("button", {
   variants: {
     color: {
@@ -8,6 +10,16 @@ export const Button = styled("button", {
       },
       green: {
         background: "$green",
+      },
+      blue: {
+        background: "$blue",
+      },
+      gray: {
+        background: "transparent",
+
+        borderColor: "$subShape",
+        borderWidth: "1px",
+        borderStyle: "solid",
       },
     },
     disabled: {
@@ -35,7 +47,7 @@ export const Button = styled("button", {
   outline: "none",
   padding: "$4",
 
-  borderRadius: "$xs",
+  borderRadius: "$md",
   cursor: "pointer",
 
   transition: "all 0.2s ease-in-out",

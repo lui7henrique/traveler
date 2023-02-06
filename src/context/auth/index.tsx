@@ -1,7 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext } from "react";
 import { AuthContextProviderProps, AuthContextType } from "./types";
 import { toast } from "react-toastify";
-import { signIn as nextAuthSignIn } from "next-auth/react";
+import {
+  signIn as nextAuthSignIn,
+  signOut as nextAuthSignOut,
+} from "next-auth/react";
 
 import { feedback } from "./feedback";
 import { useRouter } from "next/router";
@@ -13,7 +16,7 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
   const { children } = props;
 
   const { push } = useRouter();
-  const { incrementAttemptsAmount } = useAttempts();
+  const { incrementAttemptsAmount, resetAttemptsAmount } = useAttempts();
 
   const signIn = useCallback(
     async (email: string, password: string) => {
@@ -35,8 +38,10 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
 
           incrementAttemptsAmount();
 
-          if (response.status === 201) {
-            push("/dashboard");
+          if (response.status === 200) {
+            resetAttemptsAmount();
+
+            push("/dashboard/city");
           }
         }
       } catch {}
@@ -44,8 +49,18 @@ export const AuthContextProvider = (props: AuthContextProviderProps) => {
     [push]
   );
 
+  const signOut = useCallback(async () => {
+    await nextAuthSignOut({
+      redirect: false,
+    });
+
+    push("/dashboard/login");
+  }, [push]);
+
   return (
-    <AuthContext.Provider value={{ signIn }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ signIn, signOut }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

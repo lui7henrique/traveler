@@ -1,3 +1,5 @@
+import slugify from "slugify";
+
 import { withAuth } from "../../../../utils/auth";
 import prisma from "../../../../lib/prisma/client";
 
@@ -37,6 +39,9 @@ const handler = withAuth(
         },
         data: {
           name,
+          slug: slugify(name, {
+            lower: true,
+          }),
           description,
         },
       });
@@ -52,6 +57,9 @@ const handler = withAuth(
           },
           data: {
             name,
+            slug: slugify(name, {
+              lower: true,
+            }),
             description,
           },
         });

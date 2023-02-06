@@ -45,12 +45,18 @@ export const LoginForm = () => {
           error={errors.email}
           type="email"
           label="E-mail"
+          contentProps={{
+            variant: "secondary",
+          }}
         />
 
         <FieldPassword
           {...register("password")}
           label="Senha"
           error={errors.password}
+          contentProps={{
+            variant: "secondary",
+          }}
         />
       </S.FormFields>
 

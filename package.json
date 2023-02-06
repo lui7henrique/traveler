@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
+    "seed": "npx prisma db push --force-reset && npx prisma db seed",
     "test:seed": "npx prisma db push --force-reset && npx prisma db seed && jest",
     "test": "jest"
   },
@@ -15,6 +16,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@prisma/client": "^4.7.1",
     "@stitches/react": "^1.2.8",
+    "@tanstack/react-query": "^4.24.4",
     "axios": "^1.2.6",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.6",
@@ -31,6 +33,7 @@
     "react-icons": "^4.7.1",
     "react-spinners-kit": "^1.9.1",
     "react-toastify": "^9.1.1",
+    "slugify": "^1.6.5",
     "styled-components": "^5.3.6",
     "tippy.js": "^6.3.7",
     "typescript": "4.9.3",

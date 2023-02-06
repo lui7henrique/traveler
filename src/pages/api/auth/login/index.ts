@@ -14,6 +14,7 @@ export default async function handler(
   }
 
   const { body } = req;
+
   const { email, password } = body;
 
   const [hasEmail, hasPassword] = [!!email, !!password];

@@ -1,4 +1,9 @@
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from "@prisma/client/runtime";
 import { NextApiRequest, NextApiResponse } from "next";
+import slugify from "slugify";
 import prisma from "../../../lib/prisma/client";
 
 import { withAuth } from "../../../utils/auth";
@@ -21,12 +26,19 @@ const handler = withAuth(
         const city = await prisma.city.create({
           data: {
             name,
+            slug: slugify(name, {
+              lower: true,
+            }),
             description,
           },
         });
 
         return res.json({ ...city });
       } catch (e) {
+        if (e instanceof PrismaClientKnownRequestError) {
+          return res.status(422).json({ message: "Name must be unique" });
+        }
+
         return res.json({ e });
       }
     }

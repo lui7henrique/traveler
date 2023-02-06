@@ -9,8 +9,6 @@ export const config = {
   },
 };
 
-const PUBLIC_PATH = "public/uploads/images";
-
 const handler = withAuth(
   async (req, res) => {
     const {
@@ -49,10 +47,10 @@ const handler = withAuth(
       fs.readFile(path, async (err, data) => {
         if (err) throw err;
 
-        const filePath = `${PUBLIC_PATH}/cities/${city.name.toLowerCase()}.jpg`;
-        const imagePath = `/${filePath}`;
+        const pathToWriteFile = `public/uploads/images/${city.slug}.jpg`;
+        const pathToShowImage = `/uploads/images/${city.slug}.jpg`;
 
-        fs.writeFile(filePath, data, async () => {
+        fs.writeFile(pathToWriteFile, data, async () => {
           if (err) throw err;
 
           await prisma.city.update({
@@ -60,7 +58,7 @@ const handler = withAuth(
               id: id as string,
             },
             data: {
-              image: imagePath,
+              image: pathToShowImage,
             },
           });
         });

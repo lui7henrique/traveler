@@ -25,14 +25,14 @@ export const BaseFieldPassword: ForwardRefRenderFunction<
   return (
     <>
       <FieldText
-        {...fieldTextProps}
-        ref={ref}
         rightIcon={
           <IconBox onClick={() => setIsShowPassword((prevState) => !prevState)}>
             {icon}
           </IconBox>
         }
         type={type}
+        {...fieldTextProps}
+        ref={ref}
       />
     </>
   );

@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
   html, body, #__next {
     height: 100%;
     scroll-behavior: smooth !important;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Heebo', sans-serif;
   }
 `;
 
@@ -38,12 +38,14 @@ export const globalStyles = globalCss({
   },
 
   "body, input, textarea, button": {
-    fontFamily: "Roboto",
-    fontWeight: 400,
+    fontFamily: "$default",
+    fontWeight: 500,
   },
 
   "h1, h2, h3, h4, h5, h6": {
     color: "$title",
+    fontFamily: "$title",
+    fontWeight: "$semibold",
   },
 
   a: {

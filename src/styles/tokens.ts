@@ -24,11 +24,13 @@ export const fontSizes = {
 export const fontWeights = {
   regular: "400",
   medium: "500",
+  semibold: "600",
   bold: "700",
 };
 
 export const fonts = {
-  default: "Roboto, sans-serif",
+  default: "Heebo, sans-serif",
+  title: "Barlow, sans-serif",
   code: "monospace",
 };
 
@@ -87,6 +89,7 @@ export const space = {
   12: "3rem",
   16: "4rem",
   20: "5rem",
+  24: "6rem",
   30: "8rem",
   40: "10rem",
   64: "16rem",

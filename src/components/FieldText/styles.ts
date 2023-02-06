@@ -1,23 +1,9 @@
 import { styled } from "styles";
 
 export const Container = styled("div", {
-  variants: {
-    style: {
-      primary: {
-        color: "$subtext",
-      },
-      secondary: {
-        background: "$subShape",
-        color: "$title",
-      },
-    },
-  },
-  defaultVariants: {
-    style: "primary",
-  },
-
   display: "flex",
   flexDirection: "column",
+  gap: "$1",
 });
 
 export const Content = styled("div", {
@@ -29,6 +15,23 @@ export const Content = styled("div", {
         color: "$subtext",
       },
     },
+
+    variant: {
+      primary: {
+        background: "$background",
+
+        "& > input": {
+          background: "$background",
+        },
+      },
+      secondary: {
+        background: "$shape",
+      },
+    },
+  },
+
+  defaultVariants: {
+    variant: "primary",
   },
 
   height: "$12",
@@ -38,7 +41,7 @@ export const Content = styled("div", {
   borderStyle: "solid",
   borderColor: "$subShape",
 
-  borderRadius: "$xs",
+  borderRadius: "$sm",
   transition: "all 0.2s ease-in-out",
 
   display: "flex",
@@ -53,18 +56,23 @@ export const Input = styled("input", {
 
   width: "100%",
   height: "100%",
-  background: "$shape",
+  color: "$text",
 
   "&:-webkit-autofill": {
     "-webkit-box-shadow": "0 0 0 30px white inset !important",
   },
 
-  "input::-ms-reveal": {
+  "&::-ms-reveal": {
     display: "none",
   },
 
-  "input::-ms-clear": {
+  "&::-ms-clear": {
     display: "none",
+  },
+
+  "&::placeholder": {
+    color: "$subtext",
+    fontWeight: "$regular",
   },
 });
 
@@ -82,4 +90,7 @@ export const Label = styled("label", {
 
   display: "flex",
   alignItems: "center",
+  color: "$subtext",
+
+  fontWeight: "$regular",
 });
