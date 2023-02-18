@@ -21,21 +21,6 @@ async function main() {
       isAdmin: true,
     },
   });
-  const city = await prisma.city.createMany({
-    data: Array.from({ length: 10 }).map(() => {
-      const name = faker.address.cityName();
-
-      const city = {
-        name: name,
-        description: faker.lorem.text(),
-        slug: slugify(name, {
-          lower: true,
-        }),
-      };
-
-      return city;
-    }),
-  });
 }
 main()
   .then(async () => {

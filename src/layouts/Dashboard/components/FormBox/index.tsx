@@ -3,16 +3,20 @@ import { MdErrorOutline } from "react-icons/md";
 
 import * as S from "./styles";
 
+type Section = {
+  title: string;
+  fields: ReactNode;
+};
+
 type FormBoxProps = {
   step?: string;
   title: string;
-  subtitle: string;
-  children: ReactNode;
   button: ReactNode;
+  sections: Section[];
 } & typeof S.FormBoxContainer.defaultProps;
 
 export const FormBox = (props: FormBoxProps) => {
-  const { step, title, subtitle, button, children, ...containerProps } = props;
+  const { step, title, button, sections, ...containerProps } = props;
 
   return (
     <S.FormBoxContainer {...containerProps}>
@@ -22,21 +26,29 @@ export const FormBox = (props: FormBoxProps) => {
       </S.FormBoxHeader>
 
       <S.FormBoxBody>
-        <S.FormBoxBodyTitle>{subtitle}</S.FormBoxBodyTitle>
-        <S.Divider />
+        {sections.map((section) => {
+          const { fields, title } = section;
 
-        <S.FormBoxFields>{children}</S.FormBoxFields>
+          return (
+            <>
+              <S.FormBoxBodyTitle>{title}</S.FormBoxBodyTitle>
+              <S.Divider />
 
-        <S.FormBoxFooter>
-          <S.FormBoxWarning>
-            <MdErrorOutline size={24} color="#a0acb2" />
-            <S.FormBoxWarningLabel>
-              Preencha todos os dados com cuidado.
-            </S.FormBoxWarningLabel>
-          </S.FormBoxWarning>
+              <S.FormBoxFields>{fields}</S.FormBoxFields>
 
-          <S.FormBoxButtons>{button}</S.FormBoxButtons>
-        </S.FormBoxFooter>
+              <S.FormBoxFooter>
+                <S.FormBoxWarning>
+                  <MdErrorOutline size={24} color="#a0acb2" />
+                  <S.FormBoxWarningLabel>
+                    Preencha todos os dados com cuidado.
+                  </S.FormBoxWarningLabel>
+                </S.FormBoxWarning>
+
+                <S.FormBoxButtons>{button}</S.FormBoxButtons>
+              </S.FormBoxFooter>
+            </>
+          );
+        })}
       </S.FormBoxBody>
     </S.FormBoxContainer>
   );

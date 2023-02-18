@@ -30,7 +30,10 @@ const handler = withAuth(
     }
 
     if (method === "DELETE") {
-      fs.unlink(`public/uploads/images/${city.slug}.jpg`, (err) => {
+      const imagePath = city.image;
+      const imageId = imagePath?.split("/")[4];
+
+      fs.unlink(`public/uploads/images/cities/${imageId}`, (err) => {
         if (err) throw err;
 
         return res.status(500).json({

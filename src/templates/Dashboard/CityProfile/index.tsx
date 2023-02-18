@@ -25,7 +25,7 @@ export const DashboardCityProfileTemplate = (
       rightElement={
         <S.Controls>
           <CityControlButtons city={city} />
-          <Button onClick={() => push(`/dashboard/city/${slug}/place`)}>
+          <Button onClick={() => push(`/dashboard/city/${slug}/place/new`)}>
             + Adicionar um local
           </Button>
         </S.Controls>

@@ -30,6 +30,35 @@ model City {
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
   image       String?
   slug        String?
+  places      Place[]
 
   @@map(name: "cities")
+}
+
+model Place {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  name          String   @unique
+  description   String
+  category      Category @default(TURISM)
+  postalCode    String
+  address       String
+  neighbourhood String
+  number        String
+
+  image String?
+  slug  String  @unique
+
+  City   City?   @relation(fields: [cityId], references: [id])
+  cityId String?
+
+  @@map(name: "places")
+}
+
+enum Category {
+  TURISM
+  EVENT
+  FOOD
 }

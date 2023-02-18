@@ -5,15 +5,48 @@ import { useRouter } from "next/router";
 import { queryClient } from "pages/_app";
 import { api } from "services/api";
 
+export type CreateCityParams = {
+  name: string;
+  description: string;
+  image: File;
+};
+
 export const useCity = () => {
   const { push, asPath } = useRouter();
   const { handleError, handleSuccess } = useFeedback();
 
   const queryKey = ["cities"];
 
-  const deleteMutation = useMutation(
-    async (id: string) => {
-      await api.delete(`/city/${id}`);
+  const createMutation = useMutation(
+    async (params: CreateCityParams) => {
+      const { description, image, name } = params;
+
+      try {
+        const { data } = await api.post<City>("/city", {
+          name,
+          description,
+        });
+
+        try {
+          const formData = new FormData();
+          formData.append("image", image);
+
+          await api.post(`/city/${data.id}/image`, formData);
+
+          handleSuccess({ title: "Cidade criada com sucesso." });
+          push("/dashboard/city");
+        } catch (error) {
+          handleError(error, {
+            title: "Não foi possível cadastrar imagem à cidade.",
+            callback: "Verifique a imagem ou tente novamente.",
+          });
+        }
+      } catch (error) {
+        handleError(error, {
+          title: "Não foi possível cadastrar a cidade",
+          callback: "Verifique os dados ou tente novamente.",
+        });
+      }
     },
     {
       onSuccess: () => {
@@ -22,37 +55,27 @@ export const useCity = () => {
     }
   );
 
-  const handleCreateCity = async (
-    name: string,
-    description: string,
-    image: File
-  ) => {
-    try {
-      const { data } = await api.post<City>("/city", {
-        name,
-        description,
-      });
-
+  const deleteMutation = useMutation(
+    async (id: string) => {
       try {
-        const formData = new FormData();
-        formData.append("image", image);
+        await api.delete(`/city/${id}`);
 
-        await api.post(`/city/${data.id}/image`, formData);
-
-        handleSuccess({ title: "Cidade criada com sucesso" });
-        push("/dashboard/city");
+        handleSuccess({ title: "Cidade excluída com sucesso." });
       } catch (error) {
         handleError(error, {
-          title: "Não foi possível cadastrar imagem à cidade.",
-          callback: "Verifique a imagem ou tente novamente.",
+          title: "Não foi possível excluir a cidade",
         });
       }
-    } catch (error) {
-      handleError(error, {
-        title: "Não foi possível cadastrar a cidade",
-        callback: "Verifique os dados ou tente novamente.",
-      });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
     }
+  );
+
+  const handleCreateCity = async (params: CreateCityParams) => {
+    await createMutation.mutateAsync(params);
   };
 
   const handleDeleteCity = async (id: string) => {

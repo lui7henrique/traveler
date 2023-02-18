@@ -2,6 +2,7 @@ import { IncomingForm } from "formidable";
 import { withAuth } from "../../../../utils/auth";
 import fs from "fs";
 import prisma from "../../../../lib/prisma/client";
+import { randomUUID } from "crypto";
 
 export const config = {
   api: {
@@ -47,8 +48,10 @@ const handler = withAuth(
       fs.readFile(path, async (err, data) => {
         if (err) throw err;
 
-        const pathToWriteFile = `public/uploads/images/${city.slug}.jpg`;
-        const pathToShowImage = `/uploads/images/${city.slug}.jpg`;
+        const imageId = randomUUID();
+
+        const pathToWriteFile = `public/uploads/images/cities/${imageId}.jpg`;
+        const pathToShowImage = `/uploads/images/cities/${imageId}.jpg`;
 
         fs.writeFile(pathToWriteFile, data, async () => {
           if (err) throw err;

@@ -1,11 +1,10 @@
 import { useMemo, useState } from "react";
 
 import { Step, Steps } from "components/Steps";
+import { DashboardLimiter } from "layouts/Dashboard/components/Limiter";
 
 import { DashboardLayout } from "layouts/Dashboard";
 import { CityForm } from "./CityForm";
-
-import * as S from "./styles";
 
 export const DashboardCityTemplate = () => {
   const [currentStepKey, setCurrentStepKey] = useState("city-form");
@@ -38,7 +37,7 @@ export const DashboardCityTemplate = () => {
       }
       subTitle="Adicionar um perfil"
     >
-      <S.Container>{currentStep?.panel}</S.Container>
+      <DashboardLimiter>{currentStep?.panel}</DashboardLimiter>
     </DashboardLayout>
   );
 };

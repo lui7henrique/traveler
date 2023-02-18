@@ -69,4 +69,8 @@ export const globalStyles = globalCss({
     backgroundColor: "$zinc800",
     borderRadius: "0px",
   },
+
+  "*:-webkit-autofill": {
+    "-webkit-text-fill-color": "#617480",
+  },
 });
